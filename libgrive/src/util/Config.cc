@@ -19,7 +19,7 @@
 
 #include "Config.hh"
 
-#include "util/StdioFile.hh"
+#include "util/File.hh"
 
 #include <boost/program_options.hpp>
 
@@ -33,12 +33,6 @@ namespace gr {
 const std::string	default_filename	= ".grive";
 const char			*env_name			= "GR_CONFIG";
 const std::string	default_root_folder = ".";
-
-Config::Config( const fs::path& root_path ) :
-	m_path( GetPath( root_path ) )
-{
-	m_file = Read() ;
-}
 
 Config::Config( const po::variables_map& vm )
 {
@@ -70,8 +64,8 @@ const fs::path Config::Filename() const
 
 void Config::Save( )
 {
-	StdioFile file( m_path.string(), 0600 ) ;
-	m_file.Write( file ) ;
+	gr::File file( m_path.string(), 0600 ) ;
+	m_file.Write( &file ) ;
 }
 
 void Config::Set( const std::string& key, const Json& value )
@@ -99,7 +93,8 @@ Json Config::Read()
 {
 	try
 	{
-		return Json::ParseFile( m_path.string() ) ;
+		gr::File file(m_path) ;
+		return Json::Parse( &file ) ;
 	}
 	catch ( Exception& e )
 	{

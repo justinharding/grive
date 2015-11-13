@@ -30,17 +30,14 @@ class ConfigTest : public CppUnit::TestFixture
 public :
 	ConfigTest( ) ;
 
-	// declare suit function
 	CPPUNIT_TEST_SUITE( ConfigTest ) ;
-		CPPUNIT_TEST_EXCEPTION( TestInitialiseWithEmptyString, gr::Config::Error ) ;
-		CPPUNIT_TEST( TestInitialiseWithString ) ;
-		CPPUNIT_TEST( TestInitialiseWithFileSystemPath ) ;
-  CPPUNIT_TEST_SUITE_END();
+		CPPUNIT_TEST( TestInitialiseWithPath ) ;
+		CPPUNIT_TEST( TestInitialiseWithNoPath ) ;
+	CPPUNIT_TEST_SUITE_END();
 
 private :
-  void TestInitialiseWithEmptyString( );
-  void TestInitialiseWithString( );
-  void TestInitialiseWithFileSystemPath( );
+	void TestInitialiseWithPath( );
+	void TestInitialiseWithNoPath( );
 } ;
 
 } // end of namespace
